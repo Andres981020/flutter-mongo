@@ -13,6 +13,7 @@ class RealmServices with ChangeNotifier {
   User? currentUser;
   App app;
 
+ 
   RealmServices(this.app) {
     if (app.currentUser != null || currentUser != app.currentUser) {
       currentUser ??= app.currentUser;
@@ -76,9 +77,22 @@ class RealmServices with ChangeNotifier {
     notifyListeners();
   }
 
-  void createProducto(String detalle, double cantidad) {
-    final newProducto = Producto(ObjectId(), detalle, cantidad);
-    realm.write<Producto>(() => realm.add<Producto>(newProducto));
+  Future<void> createProducto(String detalle, double cantidad) async {
+    final config = Configuration.flexibleSync(currentUser!, [Producto.schema]);
+    final realm2 = Realm(config);
+
+  realm2.subscriptions.update((mutableSubscriptions) {
+    mutableSubscriptions.add(realm2.all<Producto>());
+  });
+
+  await realm2.subscriptions.waitForSynchronization();
+  final newProducto = Producto(ObjectId(), detalle, currentUser!.id, cantidad);
+  realm2.write(() {
+    realm2.add(newProducto);
+  });
+
+    // final newProducto = Producto(ObjectId(), detalle, currentUser!.id, cantidad);
+    // realm.write<Producto>(() => realm.add<Producto>(newProducto));
     notifyListeners();
   }
 

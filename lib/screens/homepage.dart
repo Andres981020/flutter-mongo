@@ -18,13 +18,14 @@ class HomePage extends StatelessWidget {
             body: TodoList(),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.endDocked,
-            floatingActionButton: Row(
-              children: [
-                CreateItemAction(),
-                CreateProductAction(),
-              ],
-            )
-            
-          );
+            floatingActionButton: 
+              CreateItemAction()
+            // Row(
+            //   children: [
+            //     CreateItemAction(),
+            //     CreateProductAction(),
+            //   ],
+            // )
+            );
   }
 }
