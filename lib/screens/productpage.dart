@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_todo/components/todo_list.dart';
-import 'package:flutter_todo/components/create_item.dart';
 import 'package:flutter_todo/components/app_bar.dart';
+import 'package:flutter_todo/components/create_product.dart';
+import 'package:flutter_todo/components/product_list.dart';
 import 'package:flutter_todo/realm/realm_services.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ProductPage extends StatelessWidget {
+  const ProductPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +14,11 @@ class HomePage extends StatelessWidget {
         ? Container()
         : const Scaffold(
             appBar: TodoAppBar(),
-            body: TodoList(),
+            body: ProductList(),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.endDocked,
             floatingActionButton: 
-              CreateItemAction()
+              CreateProductAction()
             // Row(
             //   children: [
             //     CreateItemAction(),

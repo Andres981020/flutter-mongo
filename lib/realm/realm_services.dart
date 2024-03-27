@@ -119,6 +119,18 @@ class RealmServices with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateProduct(Producto product, String? productName, double? stock) async {
+    realm.write(() {
+      if (productName != null) {
+        product.productName = productName;
+      }
+      if (stock != null) {
+        product.stock = stock;
+      }
+    });
+    notifyListeners();
+  }
+
   Future<void> close() async {
     if (currentUser != null) {
       await currentUser?.logOut();

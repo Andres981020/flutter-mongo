@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_todo/components/inicio.dart';
 import 'package:flutter_todo/realm/realm_services.dart';
+import 'package:flutter_todo/screens/productpage.dart';
 import 'package:flutter_todo/theme.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
@@ -46,10 +48,14 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'Realm Flutter Todo',
         theme: appThemeData(),
-        initialRoute: currentUser != null ? '/' : '/login',
+        // initialRoute: currentUser != null ? '/' : '/login',
+        initialRoute: '/login',
         routes: {
-          '/': (context) => const HomePage(),
-          '/login': (context) => const LogIn()
+          // '/': (context) => const HomePage(),
+          '/': (context) => const Inicio(),
+          '/home': (context) => const HomePage(),
+          '/login': (context) => const LogIn(),
+          '/productos': (context) => const ProductPage(),
         },
       ),
     );
