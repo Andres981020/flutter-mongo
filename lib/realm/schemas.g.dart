@@ -67,23 +67,27 @@ class Item extends _Item with RealmEntity, RealmObjectBase, RealmObject {
       SchemaProperty('ownerId', RealmPropertyType.string, mapTo: 'owner_id'),
     ]);
   }
-} 
+}
 
-class Producto extends _Producto with RealmEntity, RealmObjectBase, RealmObject {
+class Producto extends _Producto
+    with RealmEntity, RealmObjectBase, RealmObject {
   static var _defaultsSet = false;
 
   Producto(
     ObjectId id,
     String productName,
     String ownerId,
-    double stock
-    ) {
+    double stock, {
+    bool done = false,
+  }) {
     if (!_defaultsSet) {
       _defaultsSet = RealmObjectBase.setDefaults<Producto>({
         'stock': 15,
+        'done': false,
       });
     }
     RealmObjectBase.set(this, '_id', id);
+    RealmObjectBase.set(this, 'done', done);
     RealmObjectBase.set(this, 'product_name', productName);
     RealmObjectBase.set(this, 'stock', stock);
     RealmObjectBase.set(this, 'owner_id', ownerId);
@@ -97,9 +101,16 @@ class Producto extends _Producto with RealmEntity, RealmObjectBase, RealmObject 
   set id(ObjectId value) => RealmObjectBase.set(this, '_id', value);
 
   @override
-  String get productName => RealmObjectBase.get<String>(this, 'product_name') as String;
+  bool get done => RealmObjectBase.get<bool>(this, 'done') as bool;
   @override
-  set productName(String value) => RealmObjectBase.set(this, 'product_name', value);
+  set done(bool value) => RealmObjectBase.set(this, 'done', value);
+
+  @override
+  String get productName =>
+      RealmObjectBase.get<String>(this, 'product_name') as String;
+  @override
+  set productName(String value) =>
+      RealmObjectBase.set(this, 'product_name', value);
 
   @override
   double get stock => RealmObjectBase.get<double>(this, 'stock') as double;
@@ -125,8 +136,12 @@ class Producto extends _Producto with RealmEntity, RealmObjectBase, RealmObject 
     return const SchemaObject(ObjectType.realmObject, Producto, 'Producto', [
       SchemaProperty('id', RealmPropertyType.objectid,
           mapTo: '_id', primaryKey: true),
+      SchemaProperty('done', RealmPropertyType.bool),
       SchemaProperty('product_name', RealmPropertyType.string),
-      SchemaProperty('stock', RealmPropertyType.double,),
+      SchemaProperty(
+        'stock',
+        RealmPropertyType.double,
+      ),
       SchemaProperty('ownerId', RealmPropertyType.string, mapTo: 'owner_id'),
     ]);
   }

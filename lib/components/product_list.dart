@@ -67,6 +67,7 @@ class _ProductListState extends State<ProductList> {
                       .changes,
                   builder: (context, snapshot) {
                     final data = snapshot.data;
+                    print(data?.results.length);
 
                     if (data == null) return waitingIndicator();
 

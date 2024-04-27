@@ -18,6 +18,7 @@ class _Producto {
   @PrimaryKey()
   @MapTo('_id')
   late ObjectId id;
+  bool done = false;
   @MapTo('owner_id')
   late String ownerId;
   @MapTo('product_name') 
